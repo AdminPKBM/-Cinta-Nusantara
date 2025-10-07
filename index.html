@@ -7,38 +7,49 @@
     <style>
         body {
             box-sizing: border-box;
-            font-family: 'Comic Sans MS', cursive, sans-serif;
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
-            background: linear-gradient(135deg, #ff6b6b 0%, #4ecdc4 50%, #45b7d1 100%);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
             min-height: 100vh;
             overflow-x: hidden;
+            line-height: 1.6;
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 20px;
+            padding: clamp(16px, 4vw, 32px);
         }
 
         .header {
             text-align: center;
             color: white;
-            margin-bottom: 30px;
+            margin-bottom: clamp(30px, 6vw, 60px);
             position: relative;
+            padding: clamp(20px, 4vw, 40px) 0;
         }
 
         .header h1 {
-            font-size: 3rem;
+            font-size: clamp(2rem, 6vw, 4rem);
             margin: 0;
-            text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
+            font-weight: 800;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.3);
             animation: bounce 2s infinite;
+            background: linear-gradient(45deg, #fff, #f0f8ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .header p {
-            font-size: 1.3rem;
-            margin: 10px 0;
+            font-size: clamp(1rem, 3vw, 1.4rem);
+            margin: clamp(10px, 2vw, 20px) 0;
             opacity: 0.95;
+            font-weight: 500;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         @keyframes bounce {
@@ -73,27 +84,28 @@
 
         .menu-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-            margin-bottom: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
+            gap: clamp(20px, 4vw, 32px);
+            margin-bottom: clamp(40px, 6vw, 60px);
         }
 
         .menu-card {
-            background: white;
-            border-radius: 25px;
-            padding: 30px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
-            transition: all 0.4s ease;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: clamp(24px, 5vw, 40px);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             cursor: pointer;
             position: relative;
             overflow: hidden;
-            border: 4px solid transparent;
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .menu-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
-            border-color: #ff6b6b;
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            background: rgba(255, 255, 255, 1);
         }
 
         .menu-card::before {
@@ -102,46 +114,52 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 8px;
-            background: linear-gradient(90deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4);
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2, #f093fb);
+            border-radius: 24px 24px 0 0;
         }
 
         .menu-icon {
-            font-size: 4rem;
+            font-size: clamp(3rem, 8vw, 4.5rem);
             text-align: center;
-            margin-bottom: 20px;
-            animation: pulse 2s infinite;
+            margin-bottom: clamp(16px, 3vw, 24px);
+            animation: pulse 3s infinite;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
         }
 
         @keyframes pulse {
             0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
+            50% { transform: scale(1.05); }
             100% { transform: scale(1); }
         }
 
         .menu-title {
-            font-size: 1.6rem;
-            font-weight: bold;
-            color: #333;
+            font-size: clamp(1.2rem, 4vw, 1.8rem);
+            font-weight: 700;
+            color: #2d3748;
             text-align: center;
-            margin-bottom: 15px;
+            margin-bottom: clamp(12px, 2vw, 16px);
+            letter-spacing: -0.025em;
         }
 
         .menu-description {
-            color: #666;
+            color: #4a5568;
             text-align: center;
             line-height: 1.6;
-            font-size: 1rem;
+            font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+            font-weight: 400;
         }
 
         .content-section {
             display: none;
-            background: white;
-            border-radius: 25px;
-            padding: 40px;
-            margin-top: 30px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-            animation: slideIn 0.5s ease-out;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: clamp(24px, 5vw, 48px);
+            margin-top: clamp(20px, 4vw, 40px);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+            animation: slideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .content-section.active {
@@ -149,26 +167,31 @@
         }
 
         @keyframes slideIn {
-            from { opacity: 0; transform: translateY(30px); }
+            from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
         .back-button {
-            background: linear-gradient(45deg, #ff6b6b, #ee5a52);
+            background: linear-gradient(135deg, #667eea, #764ba2);
             color: white;
             border: none;
-            padding: 15px 30px;
-            border-radius: 25px;
-            font-size: 1.1rem;
-            font-weight: bold;
+            padding: clamp(12px, 3vw, 16px) clamp(24px, 5vw, 32px);
+            border-radius: 16px;
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+            font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s ease;
-            margin-bottom: 30px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            margin-bottom: clamp(24px, 4vw, 32px);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 16px rgba(102, 126, 234, 0.3);
         }
 
         .back-button:hover {
-            background: linear-gradient(45deg, #ee5a52, #ff6b6b);
-            transform: scale(1.05);
+            background: linear-gradient(135deg, #5a67d8, #6b46c1);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(102, 126, 234, 0.4);
         }
 
         .garuda-container {
@@ -194,25 +217,33 @@
         }
 
         .explanation-box {
-            background: #f8f9fa;
-            border-radius: 15px;
-            padding: 20px;
-            margin: 20px 0;
-            border-left: 5px solid #4ecdc4;
+            background: rgba(248, 250, 252, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: clamp(20px, 4vw, 32px);
+            margin: clamp(20px, 4vw, 32px) 0;
+            border-left: 4px solid #667eea;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.05);
+            border: 1px solid rgba(255, 255, 255, 0.3);
         }
 
         .game-container {
-            background: #f0f8ff;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(240, 147, 251, 0.1));
+            backdrop-filter: blur(20px);
             border-radius: 20px;
-            padding: 30px;
-            margin: 30px 0;
+            padding: clamp(24px, 5vw, 40px);
+            margin: clamp(24px, 4vw, 40px) 0;
             text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.08);
         }
 
         .game-title {
-            font-size: 1.8rem;
-            color: #333;
-            margin-bottom: 20px;
+            font-size: clamp(1.4rem, 4vw, 2rem);
+            color: #2d3748;
+            margin-bottom: clamp(16px, 3vw, 24px);
+            font-weight: 700;
+            letter-spacing: -0.025em;
         }
 
         .matching-game {
@@ -323,47 +354,57 @@
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             border-radius: 20px;
-            padding: 30px;
-            margin: 20px 0;
+            padding: clamp(24px, 5vw, 40px);
+            margin: clamp(20px, 4vw, 32px) 0;
+            box-shadow: 0 8px 32px rgba(102, 126, 234, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .quiz-question {
-            font-size: 1.4rem;
-            margin-bottom: 20px;
+            font-size: clamp(1.2rem, 4vw, 1.6rem);
+            margin-bottom: clamp(16px, 3vw, 24px);
             text-align: center;
+            font-weight: 600;
+            line-height: 1.4;
         }
 
         .quiz-options {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin: 20px 0;
+            grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr));
+            gap: clamp(12px, 3vw, 16px);
+            margin: clamp(16px, 3vw, 24px) 0;
         }
 
         .quiz-option {
-            background: rgba(255,255,255,0.2);
-            border: 2px solid rgba(255,255,255,0.3);
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255,255,255,0.2);
             color: white;
-            padding: 15px;
-            border-radius: 15px;
+            padding: clamp(12px, 3vw, 16px);
+            border-radius: 12px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             text-align: center;
+            font-weight: 500;
+            font-size: clamp(0.9rem, 2.5vw, 1.1rem);
         }
 
         .quiz-option:hover {
-            background: rgba(255,255,255,0.3);
-            transform: scale(1.05);
+            background: rgba(255,255,255,0.25);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
         }
 
         .quiz-option.correct {
-            background: #28a745;
-            border-color: #28a745;
+            background: linear-gradient(135deg, #48bb78, #38a169);
+            border-color: #48bb78;
+            box-shadow: 0 4px 16px rgba(72, 187, 120, 0.3);
         }
 
         .quiz-option.wrong {
-            background: #dc3545;
-            border-color: #dc3545;
+            background: linear-gradient(135deg, #f56565, #e53e3e);
+            border-color: #f56565;
+            box-shadow: 0 4px 16px rgba(245, 101, 101, 0.3);
         }
 
         .stars-display {
@@ -411,60 +452,116 @@
         }
 
         .audio-button {
-            background: #4ecdc4;
+            background: linear-gradient(135deg, #667eea, #764ba2);
             color: white;
             border: none;
-            padding: 10px 20px;
-            border-radius: 20px;
+            padding: clamp(8px, 2vw, 12px) clamp(16px, 4vw, 24px);
+            border-radius: 12px;
             cursor: pointer;
-            font-size: 1rem;
-            margin: 10px;
-            transition: all 0.3s ease;
+            font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+            font-weight: 600;
+            margin: clamp(8px, 2vw, 12px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 16px rgba(102, 126, 234, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .audio-button:hover {
-            background: #45b7d1;
-            transform: scale(1.05);
+            background: linear-gradient(135deg, #5a67d8, #6b46c1);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(102, 126, 234, 0.3);
         }
 
         .footer {
             background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(20px);
             border-radius: 20px;
-            margin-top: 40px;
-            padding: 30px;
+            margin-top: clamp(40px, 6vw, 60px);
+            padding: clamp(24px, 5vw, 40px);
             text-align: center;
             color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .footer a {
-            color: #4ecdc4;
+            color: #f093fb;
             text-decoration: none;
-            font-weight: bold;
-            transition: color 0.3s ease;
+            font-weight: 600;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .footer a:hover {
-            color: #45b7d1;
+            color: #e879f9;
             text-decoration: underline;
+            text-shadow: 0 0 8px rgba(240, 147, 251, 0.5);
+        }
+
+        .culture-subsection {
+            animation: slideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .language-card:hover,
+        .dance-card:hover,
+        .clothing-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+        }
+
+        /* Enhanced responsive design */
+        @media (max-width: 1024px) {
+            .container {
+                padding: clamp(16px, 3vw, 24px);
+            }
         }
 
         @media (max-width: 768px) {
-            .header h1 {
-                font-size: 2.2rem;
-            }
-            
             .menu-grid {
                 grid-template-columns: 1fr;
+                gap: clamp(16px, 4vw, 24px);
             }
             
             .garuda-svg {
-                width: 250px;
-                height: 250px;
+                width: min(280px, 80vw);
+                height: min(280px, 80vw);
             }
             
             .indonesia-map {
-                height: 300px;
+                height: min(300px, 60vh);
+            }
+
+            .floating-icons {
+                display: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .quiz-options {
+                grid-template-columns: 1fr;
+            }
+            
+            .culture-grid {
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            }
+        }
+
+        /* Dark mode support */
+        @media (prefers-color-scheme: dark) {
+            .content-section {
+                background: rgba(26, 32, 44, 0.95);
+                color: #e2e8f0;
+            }
+            
+            .explanation-box {
+                background: rgba(45, 55, 72, 0.8);
+                color: #e2e8f0;
+            }
+            
+            .menu-card {
+                background: rgba(26, 32, 44, 0.95);
+                color: #e2e8f0;
             }
         }
     </style>
@@ -484,28 +581,40 @@
 
         <!-- Home Menu -->
         <div id="homeMenu" class="menu-grid">
-            <div class="menu-card" onclick="showSection('lambangNegara')">
-                <div class="menu-icon">🦅</div>
-                <div class="menu-title">Lambang Negara</div>
-                <div class="menu-description">Pelajari Garuda Pancasila dan maknanya yang mendalam</div>
+            <div class="menu-card" onclick="showSection('benderaNegara')">
+                <div class="menu-icon">🇮🇩</div>
+                <div class="menu-title">Bendera Sang Merah Putih</div>
+                <div class="menu-description">Pelajari sejarah dan makna bendera kebangsaan Indonesia</div>
             </div>
 
-            <div class="menu-card" onclick="showSection('simbolNegara')">
-                <div class="menu-icon">🎌</div>
-                <div class="menu-title">Simbol Negara</div>
-                <div class="menu-description">Kenali bendera, lagu kebangsaan, dan simbol resmi lainnya</div>
+            <div class="menu-card" onclick="showSection('garudaPancasila')">
+                <div class="menu-icon">🦅</div>
+                <div class="menu-title">Garuda Pancasila</div>
+                <div class="menu-description">Kenali lambang negara dan simbol-simbol Pancasila</div>
+            </div>
+
+            <div class="menu-card" onclick="showSection('laguKebangsaan')">
+                <div class="menu-icon">🎵</div>
+                <div class="menu-title">Lagu Kebangsaan & Nasional</div>
+                <div class="menu-description">Indonesia Raya dan lagu-lagu nasional lainnya</div>
+            </div>
+
+            <div class="menu-card" onclick="showSection('presidenWapres')">
+                <div class="menu-icon">🏛️</div>
+                <div class="menu-title">Presiden & Wakil Presiden</div>
+                <div class="menu-description">Mengenal pemimpin negara Republik Indonesia</div>
             </div>
 
             <div class="menu-card" onclick="showSection('budayaDaerah')">
                 <div class="menu-icon">🎭</div>
-                <div class="menu-title">Budaya Daerah</div>
-                <div class="menu-description">Jelajahi keanekaragaman budaya 34 provinsi Indonesia</div>
+                <div class="menu-title">Keragaman Budaya Daerah</div>
+                <div class="menu-description">Bahasa, lagu, tarian, dan pakaian dari seluruh Indonesia</div>
             </div>
 
             <div class="menu-card" onclick="showSection('kuisPermainan')">
                 <div class="menu-icon">🎲</div>
                 <div class="menu-title">Kuis & Permainan</div>
-                <div class="menu-description">Uji pengetahuan dengan permainan seru dan menarik</div>
+                <div class="menu-description">Uji pengetahuan tentang simbol dan lambang negara</div>
             </div>
 
             <div class="menu-card" onclick="showSection('tentangAplikasi')">
@@ -515,10 +624,63 @@
             </div>
         </div>
 
-        <!-- Lambang Negara Section -->
-        <div id="lambangNegara" class="content-section">
+        <!-- Bendera Negara Section -->
+        <div id="benderaNegara" class="content-section">
             <button class="back-button" onclick="showHome()">← Kembali ke Beranda</button>
-            <h2 style="text-align: center; color: #333; font-size: 2.2rem;">🦅 Lambang Negara: Garuda Pancasila</h2>
+            <h2 style="text-align: center; color: #333; font-size: 2.2rem;">🇮🇩 Bendera Sang Merah Putih</h2>
+            
+            <div style="text-align: center; margin: 30px 0;">
+                <div style="width: 400px; height: 240px; margin: 20px auto; border: 3px solid #333; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.3);">
+                    <div style="width: 100%; height: 50%; background: #FF0000; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem; font-weight: bold;">MERAH</div>
+                    <div style="width: 100%; height: 50%; background: #FFFFFF; display: flex; align-items: center; justify-content: center; color: #333; font-size: 1.5rem; font-weight: bold;">PUTIH</div>
+                </div>
+                <button class="audio-button" onclick="playFlagNarration()">🔊 Dengarkan Sejarah Bendera</button>
+            </div>
+
+            <div class="explanation-box">
+                <h3>📜 Sejarah Bendera Merah Putih:</h3>
+                <ul style="font-size: 1.1rem; line-height: 1.8;">
+                    <li><strong>17 Agustus 1945:</strong> Pertama kali dikibarkan saat proklamasi kemerdekaan</li>
+                    <li><strong>Dijahit oleh:</strong> Ibu Fatmawati Soekarno, istri Presiden Soekarno</li>
+                    <li><strong>Bahan:</strong> Kain katun putih dan merah yang dijahit dengan tangan</li>
+                    <li><strong>Ukuran:</strong> Perbandingan panjang dan lebar adalah 3:2</li>
+                    <li><strong>Nama:</strong> Disebut "Sang Saka Merah Putih" atau "Sang Dwiwarna"</li>
+                </ul>
+            </div>
+
+            <div class="explanation-box">
+                <h3>🎨 Makna Warna Bendera:</h3>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0;">
+                    <div style="text-align: center; padding: 20px; background: #ffebee; border-radius: 15px;">
+                        <div style="font-size: 4rem; color: #FF0000;">🔴</div>
+                        <h4>MERAH</h4>
+                        <p>Melambangkan keberanian, semangat juang, dan darah para pahlawan yang gugur untuk kemerdekaan Indonesia</p>
+                    </div>
+                    <div style="text-align: center; padding: 20px; background: #f5f5f5; border-radius: 15px;">
+                        <div style="font-size: 4rem; color: #666;">⚪</div>
+                        <h4>PUTIH</h4>
+                        <p>Melambangkan kesucian, kedamaian, dan hati yang bersih dalam membangun bangsa Indonesia</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="game-container">
+                <h3 class="game-title">🎮 Permainan: Susun Bendera Indonesia!</h3>
+                <div style="text-align: center; margin: 20px 0;">
+                    <div id="flagPuzzle" style="width: 300px; height: 180px; margin: 0 auto; border: 2px dashed #ccc; border-radius: 10px; position: relative;">
+                        <div class="flag-piece" data-color="red" style="width: 100px; height: 80px; background: #FF0000; margin: 10px; cursor: pointer; border-radius: 5px; display: inline-block;"></div>
+                        <div class="flag-piece" data-color="white" style="width: 100px; height: 80px; background: #FFFFFF; border: 1px solid #ccc; margin: 10px; cursor: pointer; border-radius: 5px; display: inline-block;"></div>
+                    </div>
+                    <p>Seret warna yang benar ke posisi yang tepat!</p>
+                </div>
+                <div class="stars-display" id="flagStars">⭐⭐⭐</div>
+            </div>
+        </div>
+
+        <!-- Garuda Pancasila Section -->
+        <div id="garudaPancasila" class="content-section">
+            <button class="back-button" onclick="showHome()">← Kembali ke Beranda</button>
+            <h2 style="text-align: center; color: #333; font-size: 2.2rem;">🦅 Garuda Pancasila</h2>
             
             <div class="garuda-container">
                 <svg class="garuda-svg" viewBox="0 0 300 300">
@@ -531,10 +693,14 @@
                     <!-- Wings -->
                     <ellipse cx="110" cy="160" rx="30" ry="50" fill="#654321" class="garuda-part" data-part="wing-left"/>
                     <ellipse cx="190" cy="160" rx="30" ry="50" fill="#654321" class="garuda-part" data-part="wing-right"/>
-                    <!-- Shield (Perisai) -->
-                    <rect x="130" y="150" width="40" height="50" rx="5" fill="#FF0000" class="garuda-part" data-part="shield"/>
-                    <rect x="135" y="155" width="30" height="20" fill="#FFFFFF"/>
-                    <rect x="135" y="175" width="30" height="20" fill="#FF0000"/>
+                    <!-- Shield (Perisai) with Pancasila symbols -->
+                    <rect x="130" y="150" width="40" height="50" rx="5" fill="#FFD700" class="garuda-part" data-part="shield"/>
+                    <!-- Pancasila symbols on shield -->
+                    <circle cx="140" cy="165" r="4" fill="#FF0000"/>
+                    <polygon points="150,160 152,165 157,165 153,168 155,173 150,170 145,173 147,168 143,165 148,165" fill="#FFFFFF"/>
+                    <rect x="155" y="162" width="8" height="6" fill="#00FF00"/>
+                    <circle cx="140" cy="180" r="4" fill="#0000FF"/>
+                    <rect x="155" y="177" width="8" height="6" fill="#FFFF00"/>
                     <!-- Tail -->
                     <polygon points="150,240 130,280 170,280" fill="#8B4513" class="garuda-part" data-part="tail"/>
                     <!-- Ribbon -->
@@ -546,114 +712,613 @@
             </div>
 
             <div class="explanation-box">
-                <h3>🎯 Makna Garuda Pancasila:</h3>
+                <h3>🛡️ Simbol-Simbol Pancasila di Perisai:</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin: 20px 0;">
+                    <div style="text-align: center; padding: 15px; background: #f8f9fa; border-radius: 10px;">
+                        <div style="font-size: 2rem;">⭐</div>
+                        <h4>Sila 1</h4>
+                        <p>Ketuhanan Yang Maha Esa</p>
+                    </div>
+                    <div style="text-align: center; padding: 15px; background: #f8f9fa; border-radius: 10px;">
+                        <div style="font-size: 2rem;">⛓️</div>
+                        <h4>Sila 2</h4>
+                        <p>Kemanusiaan yang Adil dan Beradab</p>
+                    </div>
+                    <div style="text-align: center; padding: 15px; background: #f8f9fa; border-radius: 10px;">
+                        <div style="font-size: 2rem;">🌳</div>
+                        <h4>Sila 3</h4>
+                        <p>Persatuan Indonesia</p>
+                    </div>
+                    <div style="text-align: center; padding: 15px; background: #f8f9fa; border-radius: 10px;">
+                        <div style="font-size: 2rem;">🐂</div>
+                        <h4>Sila 4</h4>
+                        <p>Kerakyatan yang Dipimpin oleh Hikmat Kebijaksanaan</p>
+                    </div>
+                    <div style="text-align: center; padding: 15px; background: #f8f9fa; border-radius: 10px;">
+                        <div style="font-size: 2rem;">🌾</div>
+                        <h4>Sila 5</h4>
+                        <p>Keadilan Sosial bagi Seluruh Rakyat Indonesia</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="explanation-box">
+                <h3>🔢 Makna Angka pada Garuda:</h3>
                 <ul style="font-size: 1.1rem; line-height: 1.8;">
-                    <li><strong>Kepala Garuda:</strong> Melambangkan kekuatan dan keberanian bangsa Indonesia</li>
-                    <li><strong>Perisai:</strong> Berisi simbol-simbol Pancasila sebagai dasar negara</li>
-                    <li><strong>Sayap:</strong> Melambangkan perlindungan terhadap seluruh rakyat Indonesia</li>
-                    <li><strong>Pita "Bhinneka Tunggal Ika":</strong> Berbeda-beda tetapi tetap satu</li>
-                    <li><strong>17 bulu sayap, 8 bulu ekor, 45 bulu leher:</strong> Tanggal kemerdekaan 17-8-1945</li>
+                    <li><strong>17 bulu pada sayap:</strong> Tanggal proklamasi (17 Agustus)</li>
+                    <li><strong>8 bulu pada ekor:</strong> Bulan proklamasi (Agustus = bulan ke-8)</li>
+                    <li><strong>45 bulu pada leher:</strong> Tahun proklamasi (1945)</li>
+                    <li><strong>19 bulu pada sayap kecil:</strong> Hari dalam bulan (19 hari setelah proklamasi)</li>
                 </ul>
             </div>
 
             <div class="game-container">
-                <h3 class="game-title">🎮 Permainan: Pasangkan Bagian dengan Maknanya!</h3>
-                <div class="matching-game" id="garudaMatchingGame">
+                <h3 class="game-title">🎮 Permainan: Pasangkan Sila dengan Simbolnya!</h3>
+                <div class="matching-game" id="pancasilaMatchingGame">
                     <!-- Game items will be populated by JavaScript -->
                 </div>
                 <div class="stars-display" id="garudaStars">⭐⭐⭐</div>
             </div>
         </div>
 
-        <!-- Simbol Negara Section -->
-        <div id="simbolNegara" class="content-section">
+        <!-- Lagu Kebangsaan Section -->
+        <div id="laguKebangsaan" class="content-section">
             <button class="back-button" onclick="showHome()">← Kembali ke Beranda</button>
-            <h2 style="text-align: center; color: #333; font-size: 2.2rem;">🎌 Simbol-Simbol Negara Indonesia</h2>
+            <h2 style="text-align: center; color: #333; font-size: 2.2rem;">🎵 Lagu Kebangsaan & Nasional</h2>
             
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin: 30px 0;">
-                <div class="explanation-box">
-                    <h3>🇮🇩 Bendera Merah Putih</h3>
-                    <div style="width: 200px; height: 120px; margin: 15px auto; border: 2px solid #333; border-radius: 10px; overflow: hidden;">
-                        <div style="width: 100%; height: 50%; background: #FF0000;"></div>
-                        <div style="width: 100%; height: 50%; background: #FFFFFF;"></div>
+            <div class="explanation-box">
+                <h3>🎼 Indonesia Raya - Lagu Kebangsaan</h3>
+                <div style="text-align: center; margin: 20px 0;">
+                    <div style="font-size: 4rem; margin-bottom: 15px;">🎵</div>
+                    <div style="background: #f0f8ff; padding: 20px; border-radius: 15px; font-style: italic; line-height: 1.8;">
+                        <p><strong>Indonesia tanah airku</strong><br>
+                        <strong>Tanah tumpah darahku</strong><br>
+                        <strong>Di sanalah aku berdiri</strong><br>
+                        <strong>Jadi pandu ibuku</strong></p>
+                        
+                        <p><strong>Indonesia kebangsaanku</strong><br>
+                        <strong>Bangsa dan tanah airku</strong><br>
+                        <strong>Marilah kita berseru</strong><br>
+                        <strong>Indonesia bersatu</strong></p>
+                        
+                        <p><strong>Hiduplah tanahku</strong><br>
+                        <strong>Hiduplah negeriku</strong><br>
+                        <strong>Bangsaku rakyatku semuanya</strong><br>
+                        <strong>Bangunlah jiwanya</strong><br>
+                        <strong>Bangunlah badannya</strong><br>
+                        <strong>Untuk Indonesia Raya</strong></p>
                     </div>
-                    <p><strong>Merah:</strong> Keberanian dan semangat<br><strong>Putih:</strong> Kesucian dan kedamaian</p>
-                    <button class="audio-button" onclick="playFlagNarration()">🔊 Dengarkan Penjelasan</button>
                 </div>
+                <button class="audio-button" onclick="playIndonesiaRaya()">🔊 Nyanyikan Indonesia Raya</button>
+            </div>
 
-                <div class="explanation-box">
-                    <h3>🎵 Lagu Indonesia Raya</h3>
-                    <p>Lagu kebangsaan yang diciptakan oleh Wage Rudolf Supratman pada tahun 1928.</p>
-                    <div style="text-align: center; margin: 15px 0;">
-                        <div style="font-size: 3rem;">🎼</div>
-                        <p style="font-style: italic;">"Indonesia tanah airku, tanah tumpah darahku..."</p>
+            <div class="explanation-box">
+                <h3>👨‍🎼 Wage Rudolf Supratman</h3>
+                <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 20px; align-items: center;">
+                    <div style="text-align: center;">
+                        <div style="font-size: 5rem;">👨‍🎼</div>
+                        <p><strong>Pencipta Lagu Indonesia Raya</strong></p>
                     </div>
-                    <button class="audio-button" onclick="playAnthemNarration()">🔊 Nyanyikan Bersama</button>
+                    <div>
+                        <ul style="line-height: 1.8;">
+                            <li><strong>Lahir:</strong> 9 Maret 1903 di Jatinegara, Jakarta</li>
+                            <li><strong>Profesi:</strong> Wartawan dan musisi</li>
+                            <li><strong>Karya:</strong> Menciptakan lagu Indonesia Raya pada tahun 1928</li>
+                            <li><strong>Pertama dimainkan:</strong> 28 Oktober 1928 di Kongres Pemuda II</li>
+                            <li><strong>Wafat:</strong> 17 Agustus 1938 di Surabaya</li>
+                        </ul>
+                    </div>
                 </div>
+            </div>
 
-                <div class="explanation-box">
-                    <h3>🗣️ Bahasa Indonesia</h3>
-                    <p>Bahasa persatuan yang menyatukan seluruh bangsa Indonesia dari Sabang sampai Merauke.</p>
-                    <div style="text-align: center; margin: 15px 0;">
-                        <div style="font-size: 3rem;">📚</div>
-                        <p><strong>Satu Nusa, Satu Bangsa, Satu Bahasa</strong></p>
+            <div class="explanation-box">
+                <h3>🎶 Lagu-Lagu Nasional Lainnya</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin: 20px 0;">
+                    <div style="text-align: center; padding: 20px; background: #fff3cd; border-radius: 15px;">
+                        <div style="font-size: 3rem;">🌅</div>
+                        <h4>Hari Merdeka</h4>
+                        <p>Ciptaan: H. Mutahar</p>
+                        <button class="audio-button" onclick="playHariMerdeka()">🔊 Dengar</button>
                     </div>
-                    <button class="audio-button" onclick="playLanguageNarration()">🔊 Pelajari Lebih Lanjut</button>
-                </div>
-
-                <div class="explanation-box">
-                    <h3>💰 Mata Uang Rupiah</h3>
-                    <p>Mata uang resmi Indonesia dengan simbol Rp, menampilkan tokoh pahlawan nasional.</p>
-                    <div style="text-align: center; margin: 15px 0;">
-                        <div style="font-size: 3rem;">💵</div>
-                        <p>Rp 1.000 - Rp 100.000</p>
+                    <div style="text-align: center; padding: 20px; background: #d4edda; border-radius: 15px;">
+                        <div style="font-size: 3rem;">🏃‍♂️</div>
+                        <h4>Maju Tak Gentar</h4>
+                        <p>Ciptaan: Cornel Simanjuntak</p>
+                        <button class="audio-button" onclick="playMajuTakGentar()">🔊 Dengar</button>
                     </div>
-                    <button class="audio-button" onclick="playCurrencyNarration()">🔊 Kenali Uang Kita</button>
+                    <div style="text-align: center; padding: 20px; background: #cce5ff; border-radius: 15px;">
+                        <div style="font-size: 3rem;">🌺</div>
+                        <h4>Rayuan Pulau Kelapa</h4>
+                        <p>Ciptaan: Ismail Marzuki</p>
+                        <button class="audio-button" onclick="playRayuanPulauKelapa()">🔊 Dengar</button>
+                    </div>
+                    <div style="text-align: center; padding: 20px; background: #f8d7da; border-radius: 15px;">
+                        <div style="font-size: 3rem;">🎭</div>
+                        <h4>Bagimu Negeri</h4>
+                        <p>Ciptaan: Kusbini</p>
+                        <button class="audio-button" onclick="playBagimuNegeri()">🔊 Dengar</button>
+                    </div>
                 </div>
             </div>
 
             <div class="game-container">
-                <h3 class="game-title">🎯 Kuis: Tebak Simbol Negara!</h3>
-                <div class="quiz-container" id="simbolQuiz">
-                    <div class="quiz-question" id="simbolQuestion">Apa makna warna merah pada bendera Indonesia?</div>
-                    <div class="quiz-options" id="simbolOptions">
+                <h3 class="game-title">🎯 Kuis: Lagu Kebangsaan dan Nasional</h3>
+                <div class="quiz-container" id="laguQuiz">
+                    <div class="quiz-question" id="laguQuestion">Siapa pencipta lagu Indonesia Raya?</div>
+                    <div class="quiz-options" id="laguOptions">
                         <!-- Options will be populated by JavaScript -->
                     </div>
                 </div>
-                <div class="stars-display" id="simbolStars">⭐⭐⭐</div>
+                <div class="stars-display" id="laguStars">⭐⭐⭐</div>
+            </div>
+        </div>
+
+        <!-- Presiden & Wakil Presiden Section -->
+        <div id="presidenWapres" class="content-section">
+            <button class="back-button" onclick="showHome()">← Kembali ke Beranda</button>
+            <h2 style="text-align: center; color: #333; font-size: 2.2rem;">🏛️ Presiden & Wakil Presiden RI</h2>
+            
+            <div class="explanation-box">
+                <h3>👑 Presiden Republik Indonesia</h3>
+                <div style="text-align: center; margin: 20px 0;">
+                    <div style="font-size: 5rem; margin-bottom: 15px;">👨‍💼</div>
+                    <h4 style="font-size: 1.5rem; color: #333;">Presiden Republik Indonesia</h4>
+                    <p style="font-size: 1.2rem; color: #666;">Kepala Negara dan Kepala Pemerintahan</p>
+                </div>
+                
+                <div style="background: #f8f9fa; padding: 20px; border-radius: 15px; margin: 20px 0;">
+                    <h4>🎯 Tugas dan Wewenang Presiden:</h4>
+                    <ul style="line-height: 1.8;">
+                        <li>Memimpin pemerintahan negara Indonesia</li>
+                        <li>Menetapkan kebijakan nasional</li>
+                        <li>Mengangkat dan memberhentikan menteri</li>
+                        <li>Menjadi panglima tertinggi TNI</li>
+                        <li>Menandatangani undang-undang</li>
+                        <li>Mewakili Indonesia dalam hubungan internasional</li>
+                    </ul>
+                </div>
+                <button class="audio-button" onclick="playPresidenNarration()">🔊 Pelajari Peran Presiden</button>
+            </div>
+
+            <div class="explanation-box">
+                <h3>🤝 Wakil Presiden Republik Indonesia</h3>
+                <div style="text-align: center; margin: 20px 0;">
+                    <div style="font-size: 5rem; margin-bottom: 15px;">👩‍💼</div>
+                    <h4 style="font-size: 1.5rem; color: #333;">Wakil Presiden Republik Indonesia</h4>
+                    <p style="font-size: 1.2rem; color: #666;">Membantu Presiden dalam Menjalankan Pemerintahan</p>
+                </div>
+                
+                <div style="background: #f8f9fa; padding: 20px; border-radius: 15px; margin: 20px 0;">
+                    <h4>🎯 Tugas Wakil Presiden:</h4>
+                    <ul style="line-height: 1.8;">
+                        <li>Membantu Presiden dalam menjalankan pemerintahan</li>
+                        <li>Menggantikan Presiden jika berhalangan</li>
+                        <li>Memimpin program-program khusus yang ditugaskan</li>
+                        <li>Mewakili Presiden dalam acara-acara tertentu</li>
+                        <li>Memberikan masukan dan saran kepada Presiden</li>
+                    </ul>
+                </div>
+                <button class="audio-button" onclick="playWapresNarration()">🔊 Pelajari Peran Wakil Presiden</button>
+            </div>
+
+            <div class="explanation-box">
+                <h3>🗳️ Pemilihan Presiden dan Wakil Presiden</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin: 20px 0;">
+                    <div style="text-align: center; padding: 20px; background: #e3f2fd; border-radius: 15px;">
+                        <div style="font-size: 3rem;">🗳️</div>
+                        <h4>Pemilu</h4>
+                        <p>Dipilih langsung oleh rakyat setiap 5 tahun sekali</p>
+                    </div>
+                    <div style="text-align: center; padding: 20px; background: #f3e5f5; border-radius: 15px;">
+                        <div style="font-size: 3rem;">👥</div>
+                        <h4>Pasangan</h4>
+                        <p>Presiden dan Wakil Presiden dipilih dalam satu paket</p>
+                    </div>
+                    <div style="text-align: center; padding: 20px; background: #e8f5e8; border-radius: 15px;">
+                        <div style="font-size: 3rem;">⏰</div>
+                        <h4>Masa Jabatan</h4>
+                        <p>5 tahun dan dapat dipilih kembali maksimal 2 periode</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="explanation-box">
+                <h3>🏛️ Istana Kepresidenan</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin: 20px 0;">
+                    <div style="text-align: center; padding: 20px; background: #fff8e1; border-radius: 15px;">
+                        <div style="font-size: 3rem;">🏰</div>
+                        <h4>Istana Merdeka</h4>
+                        <p>Istana kepresidenan utama di Jakarta untuk acara kenegaraan</p>
+                    </div>
+                    <div style="text-align: center; padding: 20px; background: #f1f8e9; border-radius: 15px;">
+                        <div style="font-size: 3rem;">🏡</div>
+                        <h4>Istana Negara</h4>
+                        <p>Tempat tinggal resmi Presiden dan keluarga</p>
+                    </div>
+                    <div style="text-align: center; padding: 20px; background: #e8eaf6; border-radius: 15px;">
+                        <div style="font-size: 3rem;">🌴</div>
+                        <h4>Istana Bogor</h4>
+                        <p>Istana kepresidenan di Bogor untuk istirahat dan kerja</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="game-container">
+                <h3 class="game-title">🎯 Kuis: Presiden dan Wakil Presiden</h3>
+                <div class="quiz-container" id="presidenQuiz">
+                    <div class="quiz-question" id="presidenQuestion">Berapa lama masa jabatan Presiden Indonesia?</div>
+                    <div class="quiz-options" id="presidenOptions">
+                        <!-- Options will be populated by JavaScript -->
+                    </div>
+                </div>
+                <div class="stars-display" id="presidenStars">⭐⭐⭐</div>
             </div>
         </div>
 
         <!-- Budaya Daerah Section -->
         <div id="budayaDaerah" class="content-section">
             <button class="back-button" onclick="showHome()">← Kembali ke Beranda</button>
-            <h2 style="text-align: center; color: #333; font-size: 2.2rem;">🎭 Budaya Daerah Indonesia</h2>
+            <h2 style="text-align: center; color: #333; font-size: 2.2rem;">🎭 Keragaman Budaya Daerah Indonesia</h2>
             
-            <p style="text-align: center; font-size: 1.2rem; color: #666; margin-bottom: 30px;">
-                Klik pada titik-titik di peta untuk menjelajahi budaya dari berbagai provinsi!
-            </p>
-
-            <div class="indonesia-map" id="indonesiaMap">
-                <!-- Province dots will be added by JavaScript -->
-            </div>
-
-            <div class="province-info" id="provinceInfo">
-                <h3 id="provinceName">Pilih provinsi di peta!</h3>
-                <div class="culture-grid" id="cultureGrid">
-                    <!-- Culture items will be populated by JavaScript -->
+            <!-- Sub Menu Budaya -->
+            <div class="menu-grid" style="margin: 30px 0;">
+                <div class="menu-card" onclick="showCultureSection('bahasaDaerah')">
+                    <div class="menu-icon">🗣️</div>
+                    <div class="menu-title">Bahasa Daerah</div>
+                    <div class="menu-description">Pelajari bahasa-bahasa daerah di Indonesia</div>
                 </div>
-                <button class="audio-button" onclick="playProvinceNarration()">🔊 Dengarkan Penjelasan</button>
+
+                <div class="menu-card" onclick="showCultureSection('laguDaerah')">
+                    <div class="menu-icon">🎵</div>
+                    <div class="menu-title">Lagu-Lagu Daerah</div>
+                    <div class="menu-description">Dengarkan lagu tradisional dari berbagai daerah</div>
+                </div>
+
+                <div class="menu-card" onclick="showCultureSection('tarianDaerah')">
+                    <div class="menu-icon">💃</div>
+                    <div class="menu-title">Tarian Daerah</div>
+                    <div class="menu-description">Kenali tarian tradisional Indonesia</div>
+                </div>
+
+                <div class="menu-card" onclick="showCultureSection('pakaianDaerah')">
+                    <div class="menu-icon">👘</div>
+                    <div class="menu-title">Pakaian Daerah</div>
+                    <div class="menu-description">Lihat keindahan pakaian adat nusantara</div>
+                </div>
             </div>
 
-            <div class="game-container">
-                <h3 class="game-title">🌏 Kuis Budaya Daerah</h3>
-                <div class="quiz-container" id="budayaQuiz">
-                    <div class="quiz-question" id="budayaQuestion">Dari daerah manakah tarian Saman berasal?</div>
-                    <div class="quiz-options" id="budayaOptions">
-                        <!-- Options will be populated by JavaScript -->
+            <!-- Bahasa Daerah Content -->
+            <div id="bahasaDaerahContent" class="culture-subsection" style="display: none;">
+                <h3 style="text-align: center; color: #333; margin: 30px 0;">🗣️ Bahasa Daerah Indonesia</h3>
+                
+                <div class="explanation-box">
+                    <h4>🌟 Kekayaan Bahasa Indonesia</h4>
+                    <p style="font-size: 1.1rem; line-height: 1.8;">
+                        Indonesia memiliki lebih dari <strong>700 bahasa daerah</strong> yang tersebar di seluruh nusantara. 
+                        Setiap bahasa memiliki keunikan dan kekayaan budaya tersendiri yang menjadi warisan leluhur.
+                    </p>
+                </div>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin: 30px 0;">
+                    <div class="language-card" onclick="playLanguageExample('jawa')">
+                        <div style="text-align: center; padding: 20px; background: #e8f5e8; border-radius: 15px; cursor: pointer; transition: all 0.3s ease;">
+                            <div style="font-size: 3rem;">🏛️</div>
+                            <h4>Bahasa Jawa</h4>
+                            <p><strong>"Sugeng enjing"</strong> = Selamat pagi</p>
+                            <p><strong>"Piye kabare?"</strong> = Apa kabar?</p>
+                            <button class="audio-button" onclick="playLanguageNarration('jawa')">🔊 Dengar</button>
+                        </div>
+                    </div>
+
+                    <div class="language-card" onclick="playLanguageExample('sunda')">
+                        <div style="text-align: center; padding: 20px; background: #fff3cd; border-radius: 15px; cursor: pointer; transition: all 0.3s ease;">
+                            <div style="font-size: 3rem;">🌄</div>
+                            <h4>Bahasa Sunda</h4>
+                            <p><strong>"Wilujeng enjing"</strong> = Selamat pagi</p>
+                            <p><strong>"Kumaha damang?"</strong> = Apa kabar?</p>
+                            <button class="audio-button" onclick="playLanguageNarration('sunda')">🔊 Dengar</button>
+                        </div>
+                    </div>
+
+                    <div class="language-card" onclick="playLanguageExample('batak')">
+                        <div style="text-align: center; padding: 20px; background: #f8d7da; border-radius: 15px; cursor: pointer; transition: all 0.3s ease;">
+                            <div style="font-size: 3rem;">🏔️</div>
+                            <h4>Bahasa Batak</h4>
+                            <p><strong>"Horas"</strong> = Selamat/Halo</p>
+                            <p><strong>"Boasa ho?"</strong> = Apa kabar?</p>
+                            <button class="audio-button" onclick="playLanguageNarration('batak')">🔊 Dengar</button>
+                        </div>
+                    </div>
+
+                    <div class="language-card" onclick="playLanguageExample('minang')">
+                        <div style="text-align: center; padding: 20px; background: #cce5ff; border-radius: 15px; cursor: pointer; transition: all 0.3s ease;">
+                            <div style="font-size: 3rem;">🏠</div>
+                            <h4>Bahasa Minang</h4>
+                            <p><strong>"Salamaik pagi"</strong> = Selamat pagi</p>
+                            <p><strong>"Apo kaba?"</strong> = Apa kabar?</p>
+                            <button class="audio-button" onclick="playLanguageNarration('minang')">🔊 Dengar</button>
+                        </div>
+                    </div>
+
+                    <div class="language-card" onclick="playLanguageExample('bali')">
+                        <div style="text-align: center; padding: 20px; background: #e1f5fe; border-radius: 15px; cursor: pointer; transition: all 0.3s ease;">
+                            <div style="font-size: 3rem;">🌺</div>
+                            <h4>Bahasa Bali</h4>
+                            <p><strong>"Om Swastiastu"</strong> = Selamat pagi</p>
+                            <p><strong>"Kenken kabare?"</strong> = Apa kabar?</p>
+                            <button class="audio-button" onclick="playLanguageNarration('bali')">🔊 Dengar</button>
+                        </div>
+                    </div>
+
+                    <div class="language-card" onclick="playLanguageExample('bugis')">
+                        <div style="text-align: center; padding: 20px; background: #f3e5f5; border-radius: 15px; cursor: pointer; transition: all 0.3s ease;">
+                            <div style="font-size: 3rem;">⛵</div>
+                            <h4>Bahasa Bugis</h4>
+                            <p><strong>"Assalamu alaikum"</strong> = Selamat pagi</p>
+                            <p><strong>"Aga kabar?"</strong> = Apa kabar?</p>
+                            <button class="audio-button" onclick="playLanguageNarration('bugis')">🔊 Dengar</button>
+                        </div>
                     </div>
                 </div>
-                <div class="stars-display" id="budayaStars">⭐⭐⭐</div>
+
+                <div class="game-container">
+                    <h3 class="game-title">🎯 Kuis: Tebak Bahasa Daerah</h3>
+                    <div class="quiz-container" id="bahasaQuiz">
+                        <div class="quiz-question" id="bahasaQuestion">"Sugeng enjing" artinya selamat pagi dalam bahasa?</div>
+                        <div class="quiz-options" id="bahasaOptions">
+                            <!-- Options will be populated by JavaScript -->
+                        </div>
+                    </div>
+                    <div class="stars-display" id="bahasaStars">⭐⭐⭐</div>
+                </div>
+            </div>
+
+            <!-- Lagu Daerah Content -->
+            <div id="laguDaerahContent" class="culture-subsection" style="display: none;">
+                <h3 style="text-align: center; color: #333; margin: 30px 0;">🎵 Lagu-Lagu Daerah Indonesia</h3>
+                
+                <div class="explanation-box">
+                    <h4>🎼 Warisan Musik Nusantara</h4>
+                    <p style="font-size: 1.1rem; line-height: 1.8;">
+                        Setiap daerah di Indonesia memiliki lagu tradisional yang menceritakan kehidupan, 
+                        alam, dan budaya setempat. Lagu-lagu ini diturunkan dari generasi ke generasi.
+                    </p>
+                </div>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin: 30px 0;">
+                    <div style="text-align: center; padding: 25px; background: #e8f5e8; border-radius: 15px;">
+                        <div style="font-size: 4rem;">🎵</div>
+                        <h4>Gundul-Gundul Pacul</h4>
+                        <p><strong>Asal:</strong> Jawa Tengah</p>
+                        <p>Lagu anak-anak yang mengajarkan tentang gotong royong</p>
+                        <button class="audio-button" onclick="playRegionalSong('gundul')">🔊 Nyanyikan</button>
+                    </div>
+
+                    <div style="text-align: center; padding: 25px; background: #fff3cd; border-radius: 15px;">
+                        <div style="font-size: 4rem;">🌅</div>
+                        <h4>Manuk Dadali</h4>
+                        <p><strong>Asal:</strong> Jawa Barat</p>
+                        <p>Lagu tentang burung elang yang melambangkan keberanian</p>
+                        <button class="audio-button" onclick="playRegionalSong('manuk')">🔊 Nyanyikan</button>
+                    </div>
+
+                    <div style="text-align: center; padding: 25px; background: #f8d7da; border-radius: 15px;">
+                        <div style="font-size: 4rem;">🌊</div>
+                        <h4>Soleram</h4>
+                        <p><strong>Asal:</strong> Riau</p>
+                        <p>Lagu yang menggambarkan keindahan alam Melayu</p>
+                        <button class="audio-button" onclick="playRegionalSong('soleram')">🔊 Nyanyikan</button>
+                    </div>
+
+                    <div style="text-align: center; padding: 25px; background: #cce5ff; border-radius: 15px;">
+                        <div style="font-size: 4rem;">🌺</div>
+                        <h4>Jali-Jali</h4>
+                        <p><strong>Asal:</strong> DKI Jakarta</p>
+                        <p>Lagu Betawi yang ceria dan menggembirakan</p>
+                        <button class="audio-button" onclick="playRegionalSong('jali')">🔊 Nyanyikan</button>
+                    </div>
+
+                    <div style="text-align: center; padding: 25px; background: #e1f5fe; border-radius: 15px;">
+                        <div style="font-size: 4rem;">🏔️</div>
+                        <h4>Sing Sing So</h4>
+                        <p><strong>Asal:</strong> Sumatera Utara</p>
+                        <p>Lagu Batak yang penuh semangat dan kegembiraan</p>
+                        <button class="audio-button" onclick="playRegionalSong('singso')">🔊 Nyanyikan</button>
+                    </div>
+
+                    <div style="text-align: center; padding: 25px; background: #f3e5f5; border-radius: 15px;">
+                        <div style="font-size: 4rem;">🌴</div>
+                        <h4>Ampar-Ampar Pisang</h4>
+                        <p><strong>Asal:</strong> Kalimantan Selatan</p>
+                        <p>Lagu tentang kehidupan di tepi sungai Kalimantan</p>
+                        <button class="audio-button" onclick="playRegionalSong('ampar')">🔊 Nyanyikan</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tarian Daerah Content -->
+            <div id="tarianDaerahContent" class="culture-subsection" style="display: none;">
+                <h3 style="text-align: center; color: #333; margin: 30px 0;">💃 Tarian Daerah Indonesia</h3>
+                
+                <div class="explanation-box">
+                    <h4>🎭 Seni Gerak Nusantara</h4>
+                    <p style="font-size: 1.1rem; line-height: 1.8;">
+                        Tarian tradisional Indonesia mencerminkan kehidupan, kepercayaan, dan nilai-nilai budaya masyarakat. 
+                        Setiap gerakan memiliki makna dan cerita yang mendalam.
+                    </p>
+                </div>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin: 30px 0;">
+                    <div class="dance-card" onclick="showDanceDemo('saman')">
+                        <div style="text-align: center; padding: 25px; background: #e8f5e8; border-radius: 15px; cursor: pointer; transition: all 0.3s ease;">
+                            <div style="font-size: 4rem;">🙏</div>
+                            <h4>Tari Saman</h4>
+                            <p><strong>Asal:</strong> Aceh</p>
+                            <p>Tarian yang dilakukan sambil duduk dengan gerakan cepat dan kompak</p>
+                            <button class="audio-button" onclick="playDanceNarration('saman')">🔊 Pelajari</button>
+                        </div>
+                    </div>
+
+                    <div class="dance-card" onclick="showDanceDemo('kecak')">
+                        <div style="text-align: center; padding: 25px; background: #fff3cd; border-radius: 15px; cursor: pointer; transition: all 0.3s ease;">
+                            <div style="font-size: 4rem;">🔥</div>
+                            <h4>Tari Kecak</h4>
+                            <p><strong>Asal:</strong> Bali</p>
+                            <p>Tarian dengan iringan suara "cak" yang menceritakan Ramayana</p>
+                            <button class="audio-button" onclick="playDanceNarration('kecak')">🔊 Pelajari</button>
+                        </div>
+                    </div>
+
+                    <div class="dance-card" onclick="showDanceDemo('pendet')">
+                        <div style="text-align: center; padding: 25px; background: #f8d7da; border-radius: 15px; cursor: pointer; transition: all 0.3s ease;">
+                            <div style="font-size: 4rem;">🌺</div>
+                            <h4>Tari Pendet</h4>
+                            <p><strong>Asal:</strong> Bali</p>
+                            <p>Tarian penyambutan yang anggun dan penuh makna spiritual</p>
+                            <button class="audio-button" onclick="playDanceNarration('pendet')">🔊 Pelajari</button>
+                        </div>
+                    </div>
+
+                    <div class="dance-card" onclick="showDanceDemo('reog')">
+                        <div style="text-align: center; padding: 25px; background: #cce5ff; border-radius: 15px; cursor: pointer; transition: all 0.3s ease;">
+                            <div style="font-size: 4rem;">🦁</div>
+                            <h4>Reog Ponorogo</h4>
+                            <p><strong>Asal:</strong> Jawa Timur</p>
+                            <p>Tarian dengan topeng singa yang menunjukkan kekuatan dan keberanian</p>
+                            <button class="audio-button" onclick="playDanceNarration('reog')">🔊 Pelajari</button>
+                        </div>
+                    </div>
+
+                    <div class="dance-card" onclick="showDanceDemo('tor-tor')">
+                        <div style="text-align: center; padding: 25px; background: #e1f5fe; border-radius: 15px; cursor: pointer; transition: all 0.3s ease;">
+                            <div style="font-size: 4rem;">🎭</div>
+                            <h4>Tari Tor-Tor</h4>
+                            <p><strong>Asal:</strong> Sumatera Utara</p>
+                            <p>Tarian sakral Batak yang menghubungkan dengan roh leluhur</p>
+                            <button class="audio-button" onclick="playDanceNarration('tor-tor')">🔊 Pelajari</button>
+                        </div>
+                    </div>
+
+                    <div class="dance-card" onclick="showDanceDemo('jaipong')">
+                        <div style="text-align: center; padding: 25px; background: #f3e5f5; border-radius: 15px; cursor: pointer; transition: all 0.3s ease;">
+                            <div style="font-size: 4rem;">💃</div>
+                            <h4>Tari Jaipong</h4>
+                            <p><strong>Asal:</strong> Jawa Barat</p>
+                            <p>Tarian modern Sunda yang energik dan dinamis</p>
+                            <button class="audio-button" onclick="playDanceNarration('jaipong')">🔊 Pelajari</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pakaian Daerah Content -->
+            <div id="pakaianDaerahContent" class="culture-subsection" style="display: none;">
+                <h3 style="text-align: center; color: #333; margin: 30px 0;">👘 Pakaian Daerah Indonesia</h3>
+                
+                <div class="explanation-box">
+                    <h4>👗 Keindahan Busana Nusantara</h4>
+                    <p style="font-size: 1.1rem; line-height: 1.8;">
+                        Pakaian adat Indonesia mencerminkan identitas, status sosial, dan nilai-nilai budaya masyarakat. 
+                        Setiap motif, warna, dan aksesori memiliki makna filosofis yang mendalam.
+                    </p>
+                </div>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin: 30px 0;">
+                    <div class="clothing-card">
+                        <div style="text-align: center; padding: 25px; background: #e8f5e8; border-radius: 15px;">
+                            <div style="font-size: 4rem;">👘</div>
+                            <h4>Kebaya</h4>
+                            <p><strong>Asal:</strong> Jawa & Bali</p>
+                            <p>Blus tradisional yang elegan dengan bordir halus dan kain batik</p>
+                            <div style="margin: 15px 0;">
+                                <span style="background: #4ecdc4; color: white; padding: 5px 10px; border-radius: 10px; margin: 2px; display: inline-block;">Elegan</span>
+                                <span style="background: #ff6b6b; color: white; padding: 5px 10px; border-radius: 10px; margin: 2px; display: inline-block;">Feminin</span>
+                            </div>
+                            <button class="audio-button" onclick="playClothingNarration('kebaya')">🔊 Pelajari</button>
+                        </div>
+                    </div>
+
+                    <div class="clothing-card">
+                        <div style="text-align: center; padding: 25px; background: #fff3cd; border-radius: 15px;">
+                            <div style="font-size: 4rem;">🎭</div>
+                            <h4>Ulos</h4>
+                            <p><strong>Asal:</strong> Sumatera Utara</p>
+                            <p>Kain tenun Batak dengan motif geometris yang penuh makna spiritual</p>
+                            <div style="margin: 15px 0;">
+                                <span style="background: #4ecdc4; color: white; padding: 5px 10px; border-radius: 10px; margin: 2px; display: inline-block;">Sakral</span>
+                                <span style="background: #ff6b6b; color: white; padding: 5px 10px; border-radius: 10px; margin: 2px; display: inline-block;">Bermakna</span>
+                            </div>
+                            <button class="audio-button" onclick="playClothingNarration('ulos')">🔊 Pelajari</button>
+                        </div>
+                    </div>
+
+                    <div class="clothing-card">
+                        <div style="text-align: center; padding: 25px; background: #f8d7da; border-radius: 15px;">
+                            <div style="font-size: 4rem;">👑</div>
+                            <h4>Bundo Kanduang</h4>
+                            <p><strong>Asal:</strong> Sumatera Barat</p>
+                            <p>Pakaian adat Minangkabau dengan hiasan emas dan tengkuluk</p>
+                            <div style="margin: 15px 0;">
+                                <span style="background: #4ecdc4; color: white; padding: 5px 10px; border-radius: 10px; margin: 2px; display: inline-block;">Mewah</span>
+                                <span style="background: #ff6b6b; color: white; padding: 5px 10px; border-radius: 10px; margin: 2px; display: inline-block;">Berkilau</span>
+                            </div>
+                            <button class="audio-button" onclick="playClothingNarration('bundo')">🔊 Pelajari</button>
+                        </div>
+                    </div>
+
+                    <div class="clothing-card">
+                        <div style="text-align: center; padding: 25px; background: #cce5ff; border-radius: 15px;">
+                            <div style="font-size: 4rem;">🌺</div>
+                            <h4>Payas Agung</h4>
+                            <p><strong>Asal:</strong> Bali</p>
+                            <p>Pakaian upacara Bali dengan hiasan emas dan kain songket</p>
+                            <div style="margin: 15px 0;">
+                                <span style="background: #4ecdc4; color: white; padding: 5px 10px; border-radius: 10px; margin: 2px; display: inline-block;">Upacara</span>
+                                <span style="background: #ff6b6b; color: white; padding: 5px 10px; border-radius: 10px; margin: 2px; display: inline-block;">Artistik</span>
+                            </div>
+                            <button class="audio-button" onclick="playClothingNarration('payas')">🔊 Pelajari</button>
+                        </div>
+                    </div>
+
+                    <div class="clothing-card">
+                        <div style="text-align: center; padding: 25px; background: #e1f5fe; border-radius: 15px;">
+                            <div style="font-size: 4rem;">🎪</div>
+                            <h4>Baju Bodo</h4>
+                            <p><strong>Asal:</strong> Sulawesi Selatan</p>
+                            <p>Blus tradisional Bugis-Makassar dengan lengan pendek dan transparan</p>
+                            <div style="margin: 15px 0;">
+                                <span style="background: #4ecdc4; color: white; padding: 5px 10px; border-radius: 10px; margin: 2px; display: inline-block;">Sederhana</span>
+                                <span style="background: #ff6b6b; color: white; padding: 5px 10px; border-radius: 10px; margin: 2px; display: inline-block;">Anggun</span>
+                            </div>
+                            <button class="audio-button" onclick="playClothingNarration('bodo')">🔊 Pelajari</button>
+                        </div>
+                    </div>
+
+                    <div class="clothing-card">
+                        <div style="text-align: center; padding: 25px; background: #f3e5f5; border-radius: 15px;">
+                            <div style="font-size: 4rem;">🏹</div>
+                            <h4>Koteka</h4>
+                            <p><strong>Asal:</strong> Papua</p>
+                            <p>Pakaian tradisional pria Papua yang terbuat dari labu kering</p>
+                            <div style="margin: 15px 0;">
+                                <span style="background: #4ecdc4; color: white; padding: 5px 10px; border-radius: 10px; margin: 2px; display: inline-block;">Alami</span>
+                                <span style="background: #ff6b6b; color: white; padding: 5px 10px; border-radius: 10px; margin: 2px; display: inline-block;">Tradisional</span>
+                            </div>
+                            <button class="audio-button" onclick="playClothingNarration('koteka')">🔊 Pelajari</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="game-container">
+                    <h3 class="game-title">🎯 Kuis: Pakaian Adat Indonesia</h3>
+                    <div class="quiz-container" id="pakaianQuiz">
+                        <div class="quiz-question" id="pakaianQuestion">Pakaian adat "Ulos" berasal dari daerah?</div>
+                        <div class="quiz-options" id="pakaianOptions">
+                            <!-- Options will be populated by JavaScript -->
+                        </div>
+                    </div>
+                    <div class="stars-display" id="pakaianStars">⭐⭐⭐</div>
+                </div>
             </div>
         </div>
 
@@ -861,37 +1526,71 @@
 
         // Quiz questions
         const quizQuestions = {
-            simbol: [
+            flag: [
                 {
-                    question: "Apa makna warna merah pada bendera Indonesia?",
-                    options: ["Keberanian dan semangat", "Kesucian dan kedamaian", "Kekayaan alam", "Persatuan bangsa"],
+                    question: "Kapan bendera Merah Putih pertama kali dikibarkan?",
+                    options: ["17 Agustus 1945", "28 Oktober 1928", "20 Mei 1908", "1 Juni 1945"],
                     correct: 0
                 },
+                {
+                    question: "Siapa yang menjahit bendera pusaka Merah Putih?",
+                    options: ["Ibu Fatmawati", "Ibu Kartini", "Ibu Dewi Sartika", "Ibu Cut Nyak Dien"],
+                    correct: 0
+                },
+                {
+                    question: "Apa makna warna putih pada bendera Indonesia?",
+                    options: ["Kesucian dan kedamaian", "Keberanian dan semangat", "Kekayaan alam", "Persatuan bangsa"],
+                    correct: 0
+                }
+            ],
+            pancasila: [
+                {
+                    question: "Berapa jumlah sila dalam Pancasila?",
+                    options: ["5", "4", "6", "3"],
+                    correct: 0
+                },
+                {
+                    question: "Sila pertama Pancasila adalah?",
+                    options: ["Ketuhanan Yang Maha Esa", "Kemanusiaan yang Adil dan Beradab", "Persatuan Indonesia", "Kerakyatan"],
+                    correct: 0
+                },
+                {
+                    question: "Berapa bulu sayap Garuda yang melambangkan tanggal proklamasi?",
+                    options: ["17", "8", "45", "19"],
+                    correct: 0
+                }
+            ],
+            lagu: [
                 {
                     question: "Siapa pencipta lagu Indonesia Raya?",
                     options: ["W.R. Supratman", "Ismail Marzuki", "Gesang", "C. Simanjuntak"],
                     correct: 0
                 },
                 {
-                    question: "Apa motto yang tertulis di pita Garuda Pancasila?",
-                    options: ["Bhinneka Tunggal Ika", "Merdeka atau Mati", "Indonesia Raya", "Pancasila"],
+                    question: "Kapan lagu Indonesia Raya pertama kali dimainkan?",
+                    options: ["28 Oktober 1928", "17 Agustus 1945", "20 Mei 1908", "1 Juni 1945"],
+                    correct: 0
+                },
+                {
+                    question: "Siapa pencipta lagu 'Maju Tak Gentar'?",
+                    options: ["Cornel Simanjuntak", "Ismail Marzuki", "W.R. Supratman", "Kusbini"],
                     correct: 0
                 }
             ],
-            budaya: [
+            presiden: [
                 {
-                    question: "Dari daerah manakah tarian Saman berasal?",
-                    options: ["Aceh", "Sumatera Barat", "Jawa Tengah", "Bali"],
+                    question: "Berapa lama masa jabatan Presiden Indonesia?",
+                    options: ["5 tahun", "4 tahun", "6 tahun", "7 tahun"],
                     correct: 0
                 },
                 {
-                    question: "Rumah Gadang adalah rumah adat dari daerah?",
-                    options: ["Sumatera Barat", "Sumatera Utara", "Jawa Barat", "Kalimantan"],
+                    question: "Berapa kali maksimal seseorang bisa menjadi Presiden?",
+                    options: ["2 kali", "1 kali", "3 kali", "Tidak terbatas"],
                     correct: 0
                 },
                 {
-                    question: "Makanan khas Yogyakarta adalah?",
-                    options: ["Gudeg", "Rendang", "Rawon", "Pempek"],
+                    question: "Apa nama istana kepresidenan utama di Jakarta?",
+                    options: ["Istana Merdeka", "Istana Negara", "Istana Bogor", "Istana Cipanas"],
                     correct: 0
                 }
             ]
@@ -912,13 +1611,19 @@
             currentSection = sectionId;
             
             // Initialize section-specific content
-            if (sectionId === 'lambangNegara') {
-                initGarudaGame();
-            } else if (sectionId === 'simbolNegara') {
-                initSimbolQuiz();
+            if (sectionId === 'benderaNegara') {
+                initFlagQuiz();
+            } else if (sectionId === 'garudaPancasila') {
+                initPancasilaGame();
+            } else if (sectionId === 'laguKebangsaan') {
+                initLaguQuiz();
+            } else if (sectionId === 'presidenWapres') {
+                initPresidenQuiz();
             } else if (sectionId === 'budayaDaerah') {
-                initBudayaMap();
-                initBudayaQuiz();
+                // Show the culture menu by default
+                document.querySelectorAll('.culture-subsection').forEach(section => {
+                    section.style.display = 'none';
+                });
             } else if (sectionId === 'kuisPermainan') {
                 updateGameProgress();
             }
@@ -932,13 +1637,18 @@
             currentSection = 'home';
         }
 
-        function initGarudaGame() {
-            const gameContainer = document.getElementById('garudaMatchingGame');
+        function initFlagQuiz() {
+            showQuizQuestion('flag', 0);
+        }
+
+        function initPancasilaGame() {
+            const gameContainer = document.getElementById('pancasilaMatchingGame');
             const items = [
-                { id: 'head', text: 'Kepala Garuda', match: 'Kekuatan dan keberanian' },
-                { id: 'shield', text: 'Perisai', match: 'Simbol Pancasila' },
-                { id: 'wings', text: 'Sayap', match: 'Perlindungan rakyat' },
-                { id: 'ribbon', text: 'Pita', match: 'Bhinneka Tunggal Ika' }
+                { id: 'sila1', text: 'Sila 1', match: 'Ketuhanan Yang Maha Esa' },
+                { id: 'sila2', text: 'Sila 2', match: 'Kemanusiaan yang Adil dan Beradab' },
+                { id: 'sila3', text: 'Sila 3', match: 'Persatuan Indonesia' },
+                { id: 'sila4', text: 'Sila 4', match: 'Kerakyatan yang Dipimpin oleh Hikmat' },
+                { id: 'sila5', text: 'Sila 5', match: 'Keadilan Sosial bagi Seluruh Rakyat' }
             ];
             
             gameContainer.innerHTML = '';
@@ -949,6 +1659,15 @@
                 div.onclick = () => selectMatchItem(div, item.id);
                 gameContainer.appendChild(div);
             });
+            showQuizQuestion('pancasila', 0);
+        }
+
+        function initLaguQuiz() {
+            showQuizQuestion('lagu', 0);
+        }
+
+        function initPresidenQuiz() {
+            showQuizQuestion('presiden', 0);
         }
 
         function selectMatchItem(element, id) {
@@ -959,14 +1678,6 @@
                 playSuccessSound();
                 updateStars('garuda');
             }, 500);
-        }
-
-        function initSimbolQuiz() {
-            showQuizQuestion('simbol', 0);
-        }
-
-        function initBudayaQuiz() {
-            showQuizQuestion('budaya', 0);
         }
 
         function showQuizQuestion(type, index) {
@@ -1127,12 +1838,15 @@
 
         // Audio narration texts
         const narrationTexts = {
-            garuda: "Garuda Pancasila adalah lambang negara Indonesia yang melambangkan kekuatan, keberanian, dan persatuan bangsa Indonesia. Garuda memiliki kepala yang kuat, sayap yang melindungi, dan perisai berisi simbol-simbol Pancasila.",
-            flag: "Bendera Merah Putih adalah bendera kebangsaan Indonesia. Warna merah melambangkan keberanian dan semangat bangsa Indonesia, sedangkan warna putih melambangkan kesucian dan kedamaian.",
-            anthem: "Indonesia Raya adalah lagu kebangsaan Indonesia yang diciptakan oleh Wage Rudolf Supratman pada tahun 1928. Lagu ini menyatukan seluruh rakyat Indonesia dari Sabang sampai Merauke.",
-            language: "Bahasa Indonesia adalah bahasa persatuan yang menyatukan seluruh bangsa Indonesia. Dengan satu bahasa, kita dapat berkomunikasi dari Sabang sampai Merauke, dari Miangas sampai Pulau Rote.",
-            currency: "Rupiah adalah mata uang resmi Indonesia dengan simbol Rp. Uang kertas Indonesia menampilkan gambar pahlawan nasional dan keindahan alam Indonesia.",
-            province: "Indonesia memiliki 34 provinsi dengan budaya yang sangat beragam dan unik. Setiap provinsi memiliki rumah adat, pakaian adat, tarian tradisional, dan makanan khas yang berbeda-beda."
+            flag: "Bendera Sang Merah Putih adalah bendera kebangsaan Indonesia yang pertama kali dikibarkan pada 17 Agustus 1945 saat proklamasi kemerdekaan. Bendera ini dijahit oleh Ibu Fatmawati Soekarno dengan tangan. Warna merah melambangkan keberanian dan semangat juang para pahlawan, sedangkan warna putih melambangkan kesucian dan kedamaian hati rakyat Indonesia.",
+            garuda: "Garuda Pancasila adalah lambang negara Indonesia yang melambangkan kekuatan, keberanian, dan persatuan bangsa Indonesia. Garuda memiliki kepala yang kuat, sayap yang melindungi, dan perisai berisi simbol-simbol Pancasila. Jumlah bulu pada Garuda juga memiliki makna khusus yang berkaitan dengan tanggal proklamasi kemerdekaan Indonesia.",
+            indonesiaRaya: "Indonesia Raya adalah lagu kebangsaan Indonesia yang diciptakan oleh Wage Rudolf Supratman pada tahun 1928. Lagu ini pertama kali dimainkan pada Kongres Pemuda Kedua tanggal 28 Oktober 1928. Lagu ini menyatukan seluruh rakyat Indonesia dari Sabang sampai Merauke dalam semangat persatuan dan kesatuan.",
+            hariMerdeka: "Hari Merdeka adalah lagu nasional yang diciptakan oleh H. Mutahar. Lagu ini menggambarkan semangat kemerdekaan dan kegembiraan rakyat Indonesia merayakan hari kemerdekaan setiap tanggal 17 Agustus.",
+            majuTakGentar: "Maju Tak Gentar adalah lagu perjuangan yang diciptakan oleh Cornel Simanjuntak. Lagu ini menggambarkan semangat pantang menyerah dan keberanian rakyat Indonesia dalam menghadapi tantangan.",
+            rayuanPulauKelapa: "Rayuan Pulau Kelapa adalah lagu yang diciptakan oleh Ismail Marzuki. Lagu ini menggambarkan keindahan alam Indonesia yang kaya dengan pulau-pulau dan pohon kelapa.",
+            bagimuNegeri: "Bagimu Negeri adalah lagu yang diciptakan oleh Kusbini. Lagu ini mengungkapkan rasa cinta dan pengabdian kepada tanah air Indonesia.",
+            presiden: "Presiden Republik Indonesia adalah kepala negara dan kepala pemerintahan yang dipilih langsung oleh rakyat setiap 5 tahun sekali. Presiden memiliki tugas memimpin pemerintahan, menetapkan kebijakan nasional, dan mewakili Indonesia dalam hubungan internasional.",
+            wapres: "Wakil Presiden Republik Indonesia bertugas membantu Presiden dalam menjalankan pemerintahan. Wakil Presiden juga dapat menggantikan Presiden jika berhalangan dan memimpin program-program khusus yang ditugaskan oleh Presiden."
         };
 
         function createSpeechAudio(text) {
@@ -1216,34 +1930,49 @@
         }
 
         // Audio narration functions
-        function playGarudaNarration() {
-            const button = event.target;
-            playAudio(narrationTexts.garuda, button);
-        }
-
         function playFlagNarration() {
             const button = event.target;
             playAudio(narrationTexts.flag, button);
         }
 
-        function playAnthemNarration() {
+        function playGarudaNarration() {
             const button = event.target;
-            playAudio(narrationTexts.anthem, button);
+            playAudio(narrationTexts.garuda, button);
         }
 
-        function playLanguageNarration() {
+        function playIndonesiaRaya() {
             const button = event.target;
-            playAudio(narrationTexts.language, button);
+            playAudio(narrationTexts.indonesiaRaya, button);
         }
 
-        function playCurrencyNarration() {
+        function playHariMerdeka() {
             const button = event.target;
-            playAudio(narrationTexts.currency, button);
+            playAudio(narrationTexts.hariMerdeka, button);
         }
 
-        function playProvinceNarration() {
+        function playMajuTakGentar() {
             const button = event.target;
-            playAudio(narrationTexts.province, button);
+            playAudio(narrationTexts.majuTakGentar, button);
+        }
+
+        function playRayuanPulauKelapa() {
+            const button = event.target;
+            playAudio(narrationTexts.rayuanPulauKelapa, button);
+        }
+
+        function playBagimuNegeri() {
+            const button = event.target;
+            playAudio(narrationTexts.bagimuNegeri, button);
+        }
+
+        function playPresidenNarration() {
+            const button = event.target;
+            playAudio(narrationTexts.presiden, button);
+        }
+
+        function playWapresNarration() {
+            const button = event.target;
+            playAudio(narrationTexts.wapres, button);
         }
 
         // Background music functions
@@ -1339,10 +2068,181 @@
             }
         }
 
+        // Culture section navigation
+        function showCultureSection(sectionId) {
+            playClickSound();
+            
+            // Hide all culture subsections
+            document.querySelectorAll('.culture-subsection').forEach(section => {
+                section.style.display = 'none';
+            });
+            
+            // Show selected subsection
+            document.getElementById(sectionId + 'Content').style.display = 'block';
+            
+            // Initialize section-specific content
+            if (sectionId === 'bahasaDaerah') {
+                initBahasaQuiz();
+            } else if (sectionId === 'pakaianDaerah') {
+                initPakaianQuiz();
+            }
+        }
+
+        // Language narration functions
+        const languageTexts = {
+            jawa: "Bahasa Jawa adalah bahasa daerah yang paling banyak digunakan di Indonesia. Bahasa ini memiliki tingkatan atau unggah-ungguh yang menunjukkan kesopanan dan penghormatan kepada lawan bicara. Sugeng enjing artinya selamat pagi, dan Piye kabare artinya apa kabar.",
+            sunda: "Bahasa Sunda digunakan oleh masyarakat Jawa Barat dan Banten. Bahasa ini terkenal dengan kelembutannya dan memiliki banyak kata yang indah. Wilujeng enjing artinya selamat pagi, dan Kumaha damang artinya apa kabar.",
+            batak: "Bahasa Batak digunakan oleh suku Batak di Sumatera Utara. Kata Horas adalah salam khas Batak yang artinya selamat atau halo. Boasa ho artinya apa kabar dalam bahasa Batak.",
+            minang: "Bahasa Minang atau Minangkabau digunakan di Sumatera Barat. Salamaik pagi artinya selamat pagi, dan Apo kaba artinya apa kabar dalam bahasa Minang.",
+            bali: "Bahasa Bali digunakan di pulau Bali dan memiliki hubungan erat dengan agama Hindu. Om Swastiastu adalah salam yang artinya selamat pagi, dan Kenken kabare artinya apa kabar.",
+            bugis: "Bahasa Bugis digunakan oleh suku Bugis di Sulawesi Selatan. Masyarakat Bugis terkenal sebagai pelaut yang handal. Aga kabar artinya apa kabar dalam bahasa Bugis."
+        };
+
+        function playLanguageNarration(language) {
+            const button = event.target;
+            playAudio(languageTexts[language], button);
+        }
+
+        // Regional songs narration
+        const songTexts = {
+            gundul: "Gundul-Gundul Pacul adalah lagu anak-anak dari Jawa Tengah yang mengajarkan tentang gotong royong dan kerja sama. Lagu ini menceritakan tentang orang yang botak membawa cangkul untuk bekerja di sawah.",
+            manuk: "Manuk Dadali adalah lagu dari Jawa Barat yang menceritakan tentang burung elang. Manuk artinya burung, dan Dadali artinya elang. Lagu ini melambangkan keberanian dan kebebasan.",
+            soleram: "Soleram adalah lagu tradisional dari Riau yang menggambarkan keindahan alam Melayu. Lagu ini sering dinyanyikan dalam acara-acara adat dan perayaan.",
+            jali: "Jali-Jali adalah lagu Betawi dari Jakarta yang ceria dan menggembirakan. Lagu ini mencerminkan karakter masyarakat Betawi yang ramah dan gembira.",
+            singso: "Sing Sing So adalah lagu Batak dari Sumatera Utara yang penuh semangat. Lagu ini sering dinyanyikan dalam acara-acara adat Batak.",
+            ampar: "Ampar-Ampar Pisang adalah lagu dari Kalimantan Selatan yang menceritakan tentang kehidupan di tepi sungai dan kebiasaan makan pisang."
+        };
+
+        function playRegionalSong(song) {
+            const button = event.target;
+            playAudio(songTexts[song], button);
+        }
+
+        // Dance narration functions
+        const danceTexts = {
+            saman: "Tari Saman adalah tarian tradisional dari Aceh yang dilakukan sambil duduk. Tarian ini membutuhkan kekompakan dan kecepatan gerakan yang luar biasa. Tari Saman telah diakui UNESCO sebagai warisan budaya dunia.",
+            kecak: "Tari Kecak adalah tarian dari Bali yang unik karena menggunakan iringan suara 'cak' dari puluhan pria yang duduk melingkar. Tarian ini menceritakan kisah Ramayana.",
+            pendet: "Tari Pendet adalah tarian penyambutan dari Bali yang anggun dan penuh makna spiritual. Tarian ini biasanya dipentaskan untuk menyambut tamu atau dalam upacara keagamaan.",
+            reog: "Reog Ponorogo adalah tarian dari Jawa Timur yang menggunakan topeng singa besar dan berat. Tarian ini menunjukkan kekuatan dan keberanian penari.",
+            'tor-tor': "Tari Tor-Tor adalah tarian sakral dari Batak Sumatera Utara yang dipercaya dapat menghubungkan dengan roh leluhur. Tarian ini memiliki gerakan yang khas dan penuh makna.",
+            jaipong: "Tari Jaipong adalah tarian modern dari Jawa Barat yang energik dan dinamis. Tarian ini menggabungkan gerakan tradisional Sunda dengan sentuhan modern."
+        };
+
+        function playDanceNarration(dance) {
+            const button = event.target;
+            playAudio(danceTexts[dance], button);
+        }
+
+        function showDanceDemo(dance) {
+            playClickSound();
+            alert(`🎭 Menampilkan demo gerakan ${dance}! Ikuti gerakan yang ditampilkan.`);
+        }
+
+        // Clothing narration functions
+        const clothingTexts = {
+            kebaya: "Kebaya adalah blus tradisional yang elegan dari Jawa dan Bali. Kebaya biasanya dipadukan dengan kain batik atau songket. Pakaian ini melambangkan keanggunan dan feminitas wanita Indonesia.",
+            ulos: "Ulos adalah kain tenun tradisional Batak dari Sumatera Utara. Ulos memiliki motif geometris yang penuh makna spiritual dan sering digunakan dalam upacara adat Batak.",
+            bundo: "Bundo Kanduang adalah pakaian adat Minangkabau dari Sumatera Barat. Pakaian ini dihiasi dengan emas dan tengkuluk yang melambangkan kemewahan dan status sosial.",
+            payas: "Payas Agung adalah pakaian upacara Bali yang sangat mewah dengan hiasan emas dan kain songket. Pakaian ini digunakan dalam upacara keagamaan Hindu di Bali.",
+            bodo: "Baju Bodo adalah blus tradisional Bugis-Makassar dari Sulawesi Selatan. Pakaian ini sederhana namun anggun dengan lengan pendek dan bahan yang transparan.",
+            koteka: "Koteka adalah pakaian tradisional pria Papua yang terbuat dari labu kering. Pakaian ini mencerminkan kehidupan yang dekat dengan alam dan tradisi leluhur Papua."
+        };
+
+        function playClothingNarration(clothing) {
+            const button = event.target;
+            playAudio(clothingTexts[clothing], button);
+        }
+
+        // Quiz functions for culture sections
+        const cultureQuizzes = {
+            bahasa: [
+                {
+                    question: '"Sugeng enjing" artinya selamat pagi dalam bahasa?',
+                    options: ["Jawa", "Sunda", "Batak", "Minang"],
+                    correct: 0
+                },
+                {
+                    question: '"Horas" adalah salam khas dari daerah?',
+                    options: ["Sumatera Utara", "Jawa Barat", "Bali", "Sulawesi"],
+                    correct: 0
+                },
+                {
+                    question: 'Bahasa daerah yang memiliki tingkatan unggah-ungguh adalah?',
+                    options: ["Bahasa Jawa", "Bahasa Sunda", "Bahasa Bali", "Bahasa Bugis"],
+                    correct: 0
+                }
+            ],
+            pakaian: [
+                {
+                    question: 'Pakaian adat "Ulos" berasal dari daerah?',
+                    options: ["Sumatera Utara", "Jawa Barat", "Bali", "Sulawesi"],
+                    correct: 0
+                },
+                {
+                    question: 'Kebaya biasanya dipadukan dengan kain?',
+                    options: ["Batik", "Ulos", "Songket", "Tenun"],
+                    correct: 0
+                },
+                {
+                    question: 'Koteka adalah pakaian tradisional dari?',
+                    options: ["Papua", "Kalimantan", "Sulawesi", "Maluku"],
+                    correct: 0
+                }
+            ]
+        };
+
+        function initBahasaQuiz() {
+            showCultureQuiz('bahasa', 0);
+        }
+
+        function initPakaianQuiz() {
+            showCultureQuiz('pakaian', 0);
+        }
+
+        function showCultureQuiz(type, index) {
+            const questions = cultureQuizzes[type];
+            if (index >= questions.length) return;
+            
+            const question = questions[index];
+            document.getElementById(`${type}Question`).textContent = question.question;
+            
+            const optionsContainer = document.getElementById(`${type}Options`);
+            optionsContainer.innerHTML = '';
+            
+            question.options.forEach((option, i) => {
+                const div = document.createElement('div');
+                div.className = 'quiz-option';
+                div.textContent = option;
+                div.onclick = () => selectCultureQuizOption(div, i, question.correct, type, index);
+                optionsContainer.appendChild(div);
+            });
+        }
+
+        function selectCultureQuizOption(element, selected, correct, type, index) {
+            playClickSound();
+            const options = document.querySelectorAll(`#${type}Options .quiz-option`);
+            options.forEach(opt => opt.style.pointerEvents = 'none');
+            
+            if (selected === correct) {
+                element.classList.add('correct');
+                playSuccessSound();
+                updateStars(type);
+                setTimeout(() => {
+                    showCultureQuiz(type, index + 1);
+                }, 1500);
+            } else {
+                element.classList.add('wrong');
+                options[correct].classList.add('correct');
+                setTimeout(() => {
+                    showCultureQuiz(type, index + 1);
+                }, 2000);
+            }
+        }
+
         // Initialize the application
         document.addEventListener('DOMContentLoaded', function() {
             console.log('Cinta Nusantara App Loaded Successfully! 🇮🇩');
         });
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'98ad67d5d2f4ff8f',t:'MTc1OTg0MDE4My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'98ad7d1e17c53e26',t:'MTc1OTg0MTA1NS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
