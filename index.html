@@ -744,6 +744,12 @@
             </div>
         </div>
 
+        <!-- Audio Controls -->
+        <div style="position: fixed; top: 20px; right: 20px; z-index: 1000; background: rgba(255,255,255,0.9); border-radius: 15px; padding: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.2);">
+            <button class="audio-button" onclick="playBackgroundMusic()" style="margin: 5px;">🎵 Musik</button>
+            <button class="audio-button" onclick="stopAudio()" style="margin: 5px; background: #ff6b6b;">⏹️ Stop</button>
+        </div>
+
         <footer class="footer">
             <h3>📞 Hubungi Kami</h3>
             <p>Aplikasi Cinta Nusantara - Media Pembelajaran Interaktif</p>
@@ -892,6 +898,9 @@
         };
 
         function showSection(sectionId) {
+            playClickSound();
+            stopAudio(); // Stop any playing audio when navigating
+            
             // Hide all sections
             document.querySelectorAll('.content-section').forEach(section => {
                 section.classList.remove('active');
@@ -943,9 +952,11 @@
         }
 
         function selectMatchItem(element, id) {
+            playClickSound();
             element.classList.toggle('selected');
             setTimeout(() => {
                 element.classList.add('correct');
+                playSuccessSound();
                 updateStars('garuda');
             }, 500);
         }
@@ -978,11 +989,13 @@
         }
 
         function selectQuizOption(element, selected, correct, type, index) {
+            playClickSound();
             const options = document.querySelectorAll(`#${type}Options .quiz-option`);
             options.forEach(opt => opt.style.pointerEvents = 'none');
             
             if (selected === correct) {
                 element.classList.add('correct');
+                playSuccessSound();
                 updateStars(type);
                 setTimeout(() => {
                     showQuizQuestion(type, index + 1);
@@ -1014,6 +1027,7 @@
         }
 
         function showProvinceInfo(provinceKey) {
+            playClickSound();
             const province = provinces[provinceKey];
             const infoContainer = document.getElementById('provinceInfo');
             const nameElement = document.getElementById('provinceName');
@@ -1107,29 +1121,222 @@
             alert('🏆 Selamat! Kamu telah menyelesaikan semua permainan dan menjadi Sahabat Cinta Nusantara!');
         }
 
-        // Audio narration functions (simulated)
+        // Audio narration system
+        let currentAudio = null;
+        let isPlaying = false;
+
+        // Audio narration texts
+        const narrationTexts = {
+            garuda: "Garuda Pancasila adalah lambang negara Indonesia yang melambangkan kekuatan, keberanian, dan persatuan bangsa Indonesia. Garuda memiliki kepala yang kuat, sayap yang melindungi, dan perisai berisi simbol-simbol Pancasila.",
+            flag: "Bendera Merah Putih adalah bendera kebangsaan Indonesia. Warna merah melambangkan keberanian dan semangat bangsa Indonesia, sedangkan warna putih melambangkan kesucian dan kedamaian.",
+            anthem: "Indonesia Raya adalah lagu kebangsaan Indonesia yang diciptakan oleh Wage Rudolf Supratman pada tahun 1928. Lagu ini menyatukan seluruh rakyat Indonesia dari Sabang sampai Merauke.",
+            language: "Bahasa Indonesia adalah bahasa persatuan yang menyatukan seluruh bangsa Indonesia. Dengan satu bahasa, kita dapat berkomunikasi dari Sabang sampai Merauke, dari Miangas sampai Pulau Rote.",
+            currency: "Rupiah adalah mata uang resmi Indonesia dengan simbol Rp. Uang kertas Indonesia menampilkan gambar pahlawan nasional dan keindahan alam Indonesia.",
+            province: "Indonesia memiliki 34 provinsi dengan budaya yang sangat beragam dan unik. Setiap provinsi memiliki rumah adat, pakaian adat, tarian tradisional, dan makanan khas yang berbeda-beda."
+        };
+
+        function createSpeechAudio(text) {
+            if ('speechSynthesis' in window) {
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'id-ID';
+                utterance.rate = 0.8;
+                utterance.pitch = 1.1;
+                utterance.volume = 0.9;
+                
+                // Try to use Indonesian voice if available
+                const voices = speechSynthesis.getVoices();
+                const indonesianVoice = voices.find(voice => 
+                    voice.lang.includes('id') || voice.name.includes('Indonesian')
+                );
+                if (indonesianVoice) {
+                    utterance.voice = indonesianVoice;
+                }
+                
+                return utterance;
+            }
+            return null;
+        }
+
+        function playAudio(text, buttonElement) {
+            if (isPlaying) {
+                stopAudio();
+                return;
+            }
+
+            const audio = createSpeechAudio(text);
+            if (!audio) {
+                // Fallback to alert if speech synthesis not supported
+                alert('🔊 ' + text);
+                return;
+            }
+
+            currentAudio = audio;
+            isPlaying = true;
+            
+            // Update button appearance
+            if (buttonElement) {
+                buttonElement.innerHTML = '⏸️ Berhenti';
+                buttonElement.style.background = '#ff6b6b';
+            }
+
+            audio.onend = () => {
+                isPlaying = false;
+                currentAudio = null;
+                if (buttonElement) {
+                    buttonElement.innerHTML = '🔊 Dengarkan Penjelasan';
+                    buttonElement.style.background = '#4ecdc4';
+                }
+            };
+
+            audio.onerror = () => {
+                isPlaying = false;
+                currentAudio = null;
+                if (buttonElement) {
+                    buttonElement.innerHTML = '🔊 Dengarkan Penjelasan';
+                    buttonElement.style.background = '#4ecdc4';
+                }
+                alert('🔊 ' + text);
+            };
+
+            speechSynthesis.speak(audio);
+        }
+
+        function stopAudio() {
+            if (currentAudio && isPlaying) {
+                speechSynthesis.cancel();
+                isPlaying = false;
+                currentAudio = null;
+                
+                // Reset all audio buttons
+                document.querySelectorAll('.audio-button').forEach(btn => {
+                    btn.innerHTML = '🔊 Dengarkan Penjelasan';
+                    btn.style.background = '#4ecdc4';
+                });
+            }
+        }
+
+        // Audio narration functions
         function playGarudaNarration() {
-            alert('🔊 Garuda Pancasila adalah lambang negara Indonesia yang melambangkan kekuatan, keberanian, dan persatuan bangsa!');
+            const button = event.target;
+            playAudio(narrationTexts.garuda, button);
         }
 
         function playFlagNarration() {
-            alert('🔊 Bendera Merah Putih adalah bendera kebangsaan Indonesia. Merah melambangkan keberanian, putih melambangkan kesucian!');
+            const button = event.target;
+            playAudio(narrationTexts.flag, button);
         }
 
         function playAnthemNarration() {
-            alert('🔊 Indonesia Raya adalah lagu kebangsaan kita yang diciptakan oleh Wage Rudolf Supratman!');
+            const button = event.target;
+            playAudio(narrationTexts.anthem, button);
         }
 
         function playLanguageNarration() {
-            alert('🔊 Bahasa Indonesia adalah bahasa persatuan yang menyatukan seluruh bangsa Indonesia!');
+            const button = event.target;
+            playAudio(narrationTexts.language, button);
         }
 
         function playCurrencyNarration() {
-            alert('🔊 Rupiah adalah mata uang Indonesia yang menampilkan gambar pahlawan nasional!');
+            const button = event.target;
+            playAudio(narrationTexts.currency, button);
         }
 
         function playProvinceNarration() {
-            alert('🔊 Indonesia memiliki 34 provinsi dengan budaya yang beragam dan unik!');
+            const button = event.target;
+            playAudio(narrationTexts.province, button);
+        }
+
+        // Background music functions
+        function playBackgroundMusic() {
+            // Create a simple melody using Web Audio API
+            if ('AudioContext' in window || 'webkitAudioContext' in window) {
+                const AudioContext = window.AudioContext || window.webkitAudioContext;
+                const audioContext = new AudioContext();
+                
+                // Simple Indonesia Raya melody notes
+                const melody = [
+                    { freq: 523.25, duration: 0.5 }, // C5
+                    { freq: 587.33, duration: 0.5 }, // D5
+                    { freq: 659.25, duration: 0.5 }, // E5
+                    { freq: 698.46, duration: 0.5 }, // F5
+                    { freq: 783.99, duration: 1.0 }, // G5
+                ];
+                
+                let currentTime = audioContext.currentTime;
+                
+                melody.forEach(note => {
+                    const oscillator = audioContext.createOscillator();
+                    const gainNode = audioContext.createGain();
+                    
+                    oscillator.connect(gainNode);
+                    gainNode.connect(audioContext.destination);
+                    
+                    oscillator.frequency.setValueAtTime(note.freq, currentTime);
+                    oscillator.type = 'sine';
+                    
+                    gainNode.gain.setValueAtTime(0, currentTime);
+                    gainNode.gain.linearRampToValueAtTime(0.1, currentTime + 0.1);
+                    gainNode.gain.linearRampToValueAtTime(0, currentTime + note.duration);
+                    
+                    oscillator.start(currentTime);
+                    oscillator.stop(currentTime + note.duration);
+                    
+                    currentTime += note.duration;
+                });
+            }
+        }
+
+        // Sound effects for interactions
+        function playClickSound() {
+            if ('AudioContext' in window || 'webkitAudioContext' in window) {
+                const AudioContext = window.AudioContext || window.webkitAudioContext;
+                const audioContext = new AudioContext();
+                
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
+                oscillator.type = 'sine';
+                
+                gainNode.gain.setValueAtTime(0, audioContext.currentTime);
+                gainNode.gain.linearRampToValueAtTime(0.1, audioContext.currentTime + 0.01);
+                gainNode.gain.linearRampToValueAtTime(0, audioContext.currentTime + 0.1);
+                
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + 0.1);
+            }
+        }
+
+        function playSuccessSound() {
+            if ('AudioContext' in window || 'webkitAudioContext' in window) {
+                const AudioContext = window.AudioContext || window.webkitAudioContext;
+                const audioContext = new AudioContext();
+                
+                // Success melody
+                const notes = [523.25, 659.25, 783.99]; // C-E-G chord
+                
+                notes.forEach((freq, index) => {
+                    const oscillator = audioContext.createOscillator();
+                    const gainNode = audioContext.createGain();
+                    
+                    oscillator.connect(gainNode);
+                    gainNode.connect(audioContext.destination);
+                    
+                    oscillator.frequency.setValueAtTime(freq, audioContext.currentTime);
+                    oscillator.type = 'sine';
+                    
+                    const startTime = audioContext.currentTime + (index * 0.1);
+                    gainNode.gain.setValueAtTime(0, startTime);
+                    gainNode.gain.linearRampToValueAtTime(0.15, startTime + 0.05);
+                    gainNode.gain.linearRampToValueAtTime(0, startTime + 0.3);
+                    
+                    oscillator.start(startTime);
+                    oscillator.stop(startTime + 0.3);
+                });
+            }
         }
 
         // Initialize the application
@@ -1137,5 +1344,5 @@
             console.log('Cinta Nusantara App Loaded Successfully! 🇮🇩');
         });
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'98ad62d6f0faff8f',t:'MTc1OTgzOTk3OC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'98ad67d5d2f4ff8f',t:'MTc1OTg0MDE4My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
